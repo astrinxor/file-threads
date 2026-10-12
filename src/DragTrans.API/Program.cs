@@ -33,7 +33,7 @@ builder.Services.AddSingleton(jwtSetting);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFileRepository, FileRepository>();
-builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+builder.Services.AddScoped<ISettingProfileRepository, SettingProfileRepository>();
 
 builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<LogInService>();

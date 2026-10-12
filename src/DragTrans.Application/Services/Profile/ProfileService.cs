@@ -5,20 +5,30 @@ namespace DragTrans.Application.Service.Profile;
 
 public class ProfileService
 {
-    private readonly IUserProfileRepository _userProfileRepository;
+    private readonly ISettingProfileRepository _settingProfileRepository;
 
-    public ProfileService(IUserProfileRepository userProfileRepository)
+    public ProfileService(ISettingProfileRepository settingProfileRepository)
     {
-        _userProfileRepository = userProfileRepository;
+        _settingProfileRepository = settingProfileRepository;
     }
 
-    public async Task<UserProfile?> GetProfileAsync(Guid userId)
+    public async Task<SettingProfile?> GetProfileAsync(Guid userId)
     {
-        return await _userProfileRepository.GetProfileByUserIdAsync(userId);
+        return await _settingProfileRepository.GetProfileByUserIdAsync(userId);
     }
 
     public async Task UpdateDescriptionAsync(string description, Guid userId)
     {
-        await _userProfileRepository.UpdateDescriptionAsync(description, userId);
+        await _settingProfileRepository.UpdateDescriptionAsync(description, userId);
+    }
+
+    public async Task UpdateAvatarFilePathAsync(string avatarFilePath, Guid userId)
+    {
+        await _settingProfileRepository.UpdateAvatarFilePathAsync(avatarFilePath, userId);
+    }
+
+    public async Task UpdateOnlineStatusAsync(Guid userId, bool isOnline)
+    {
+        await _settingProfileRepository.UpdateOnlineStatusAsync(userId, isOnline);
     }
 }

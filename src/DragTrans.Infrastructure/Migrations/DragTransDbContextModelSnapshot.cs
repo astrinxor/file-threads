@@ -43,6 +43,27 @@ namespace DragTrans.Infrastructure.Migrations
                     b.ToTable("EmailVerifications");
                 });
 
+            modelBuilder.Entity("DragTrans.Domain.Entities.SettingProfile", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AvatarFilePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsOnline")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("SettingProfiles");
+                });
+
             modelBuilder.Entity("DragTrans.Domain.Entities.StoredFile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -106,25 +127,15 @@ namespace DragTrans.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DragTrans.Domain.Entities.UserProfile", b =>
+            modelBuilder.Entity("DragTrans.Domain.Entities.SettingProfile", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.HasOne("DragTrans.Domain.Entities.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("DragTrans.Domain.Entities.SettingProfile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("AvatarFilePath")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsOnline")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserProfiles");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DragTrans.Domain.Entities.StoredFile", b =>
@@ -132,17 +143,6 @@ namespace DragTrans.Infrastructure.Migrations
                     b.HasOne("DragTrans.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DragTrans.Domain.Entities.UserProfile", b =>
-                {
-                    b.HasOne("DragTrans.Domain.Entities.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("DragTrans.Domain.Entities.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

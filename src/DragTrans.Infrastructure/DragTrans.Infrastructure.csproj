@@ -19,6 +19,13 @@
     <ProjectReference Include="..\DragTrans.Domain\DragTrans.Domain.csproj" />
     <ProjectReference Include="..\DragTrans.Application\DragTrans.Application.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="Resources/avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Storage\" />

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DragTrans.Domain\DragTrans.Domain.csproj" />
+    <ProjectReference Include="../DragTrans.Application/DragTrans.Application.csproj" />
     <ProjectReference Include="..\DragTrans.Infrastructure\DragTrans.Infrastructure.csproj" />
   </ItemGroup>
 

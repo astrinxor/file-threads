@@ -8,5 +8,5 @@ public class User
     public String PasswordHash { get; set; } = String.Empty;
     public DateTime CreateTime { get; set; }
     public bool EmailConfirmate { get; set; } = false;
-    public UserProfile Profile { get; set; } = null!;
+    public SettingProfile Profile { get; set; } = null!;
 }
