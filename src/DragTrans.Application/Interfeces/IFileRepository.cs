@@ -1,6 +1,6 @@
 ﻿using DragTrans.Domain.Entities;
 
-namespace DragTrans.Application.Interfeces;
+namespace DragTrans.Application.Interfaces;
 
 public interface IFileRepository
 {

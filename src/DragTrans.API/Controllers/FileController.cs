@@ -1,9 +1,7 @@
 ﻿using DragTrans.Application.Services.Files;
-using DragTrans.Domain.Entities;
-using DragTrans.Application.Interfeces;
+using DragTrans.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace DragTrans.API.Controllers;

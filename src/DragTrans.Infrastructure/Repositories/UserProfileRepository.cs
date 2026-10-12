@@ -15,10 +15,6 @@ public class UserProfileRepository : IUserProfileRepository
         _dbContext = dbContext;
     }
 
-    public async Task<UserProfile?> GetProfileByUserNameAsync(string userName)
-    {
-        return await _dbContext.UserProfiles.FirstOrDefaultAsync(profile => profile.User.UserName == userName);
-    }
 
     public async Task<UserProfile?> GetProfileByUserIdAsync(Guid userId)
     {
@@ -35,7 +31,7 @@ public class UserProfileRepository : IUserProfileRepository
         await _dbContext.UserProfiles.Where(profile => profile.UserId == userId).ExecuteUpdateAsync(x => x.SetProperty(profile => profile.AvatarFilePath, avatarFilePath));
     }
 
-    public async Task AddDefaultAsync(UserProfile profile)
+    public async Task AddDefaultAsync(UserProfile profile, Guid userId)
     {
         await _dbContext.UserProfiles.AddAsync(profile);
         await _dbContext.SaveChangesAsync();

@@ -141,12 +141,18 @@ namespace DragTrans.Infrastructure.Migrations
             modelBuilder.Entity("DragTrans.Domain.Entities.UserProfile", b =>
                 {
                     b.HasOne("DragTrans.Domain.Entities.User", "User")
-                        .WithOne()
+                        .WithOne("Profile")
                         .HasForeignKey("DragTrans.Domain.Entities.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DragTrans.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Profile")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

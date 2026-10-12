@@ -1,6 +1,6 @@
 ﻿using DragTrans.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using DragTrans.Application.Interfeces;
+using DragTrans.Application.Interfaces;
 using DragTrans.Domain.Entities;
 
 namespace DragTrans.Infrastructure.Repositories;

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using DragTrans.Application.Service.Profile;
 
 using System.Text;
 
@@ -32,12 +33,14 @@ builder.Services.AddSingleton(jwtSetting);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFileRepository, FileRepository>();
+builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 
 builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<LogInService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<SettingService>();
+builder.Services.AddScoped<ProfileService>();
 
 builder.Services.AddAuthorization();
 

@@ -1,4 +1,5 @@
-﻿using DragTrans.Domain.Entities;
+﻿
+using DragTrans.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DragTrans.Infrastructure.Data;
@@ -12,7 +13,6 @@ public class DragTransDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-
     public DbSet<StoredFile> StoredFiles => Set<StoredFile>();
     public DbSet<EmailVerification> EmailVerifications => Set<EmailVerification>();
     public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
@@ -24,9 +24,9 @@ public class DragTransDbContext : DbContext
         modelBuilder.Entity<UserProfile>()
             .HasKey(profile => profile.UserId);
 
-        modelBuilder.Entity<UserProfile>()
-            .HasOne(profile => profile.User)
-            .WithOne()
+        modelBuilder.Entity<User>()
+            .HasOne(user => user.Profile)
+            .WithOne(profile => profile.User)
             .HasForeignKey<UserProfile>(profile => profile.UserId);
 
         modelBuilder.Entity<StoredFile>()
