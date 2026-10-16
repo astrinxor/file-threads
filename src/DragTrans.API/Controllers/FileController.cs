@@ -8,6 +8,7 @@ namespace DragTrans.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class FileController : ControllerBase
 {
     private readonly FileService _fileservice;
@@ -19,7 +20,6 @@ public class FileController : ControllerBase
         _filerepository = filerepository;
     }
 
-    [Authorize]
     [HttpPost("upload")]
     public async Task<IActionResult> Upload(IFormFile file)
     { 
@@ -30,7 +30,7 @@ public class FileController : ControllerBase
         return Ok(storedFile);
     }
 
-    [Authorize]
+    
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
@@ -58,11 +58,11 @@ public class FileController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("getAll")]
 
-    public async Task<IActionResult> getall(Guid userId)
+    public async Task<IActionResult> getall()
     {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var fileses = await _filerepository.GetByUserIdAsync(userId);
         return Ok(fileses);
     }

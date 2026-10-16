@@ -33,14 +33,14 @@ public class SettingProfileRepository : ISettingProfileRepository
         return await _dbContext.SettingProfiles
             .FirstOrDefaultAsync(profile => profile.UserId == userId);
     }
-    public async Task UpdateDescriptionAsync(string description, Guid userId)
+    public async Task UpdateDescriptionAsync(string newDescription, Guid userId)
     {
         var profile = await _dbContext.SettingProfiles
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (profile != null)
         {
-            profile.Description = description;
+            profile.Description = newDescription;
             await _dbContext.SaveChangesAsync();
         }
         

@@ -8,11 +8,11 @@ namespace DragTrans.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class SettingProfileController : ControllerBase
+public class SettingAccountController : ControllerBase
 {
     private readonly SettingService _settingService;
 
-    public SettingProfileController(SettingService settingService)
+    public SettingAccountController(SettingService settingService)
     {
         _settingService = settingService;
     }

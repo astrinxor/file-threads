@@ -17,9 +17,9 @@ public class ProfileService
         return await _settingProfileRepository.GetProfileByUserIdAsync(userId);
     }
 
-    public async Task UpdateDescriptionAsync(string description, Guid userId)
+    public async Task UpdateDescriptionAsync(string newDescription, Guid userId)
     {
-        await _settingProfileRepository.UpdateDescriptionAsync(description, userId);
+        await _settingProfileRepository.UpdateDescriptionAsync(newDescription, userId);
     }
 
     public async Task UpdateAvatarFilePathAsync(string avatarFilePath, Guid userId)
