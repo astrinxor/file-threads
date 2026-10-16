@@ -36,10 +36,9 @@ public class RegisterService
             UserName = request.UserName,
             PasswordHash = passwordHash,
             CreateTime = DateTime.UtcNow,
-            Profile = new global::DragTrans.Domain.Entities.SettingProfile
+            Profile = new global::DragTrans.Domain.Entities.Profile
             {
                 Description = "описание профиля",
-                AvatarFilePath = Path.Combine("Profiles", userId.ToString(), "avatar.png"),
                 IsOnline = false
             }
         };

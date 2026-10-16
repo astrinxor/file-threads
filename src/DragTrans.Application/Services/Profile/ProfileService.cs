@@ -1,7 +1,7 @@
 using DragTrans.Application.Interfaces;
 using DragTrans.Domain.Entities;
 
-namespace DragTrans.Application.Service.Profile;
+namespace DragTrans.Application.Service.SettingProfile;
 
 public class ProfileService
 {
@@ -12,7 +12,7 @@ public class ProfileService
         _settingProfileRepository = settingProfileRepository;
     }
 
-    public async Task<SettingProfile?> GetProfileAsync(Guid userId)
+    public async Task<Profile?> GetProfileAsync(Guid userId)
     {
         return await _settingProfileRepository.GetProfileByUserIdAsync(userId);
     }
@@ -20,11 +20,6 @@ public class ProfileService
     public async Task UpdateDescriptionAsync(string newDescription, Guid userId)
     {
         await _settingProfileRepository.UpdateDescriptionAsync(newDescription, userId);
-    }
-
-    public async Task UpdateAvatarFilePathAsync(string avatarFilePath, Guid userId)
-    {
-        await _settingProfileRepository.UpdateAvatarFilePathAsync(avatarFilePath, userId);
     }
 
     public async Task UpdateOnlineStatusAsync(Guid userId, bool isOnline)

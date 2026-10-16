@@ -1,4 +1,4 @@
-using DragTrans.Application.Service.Profile;
+using DragTrans.Application.Service.SettingProfile;
 using Microsoft.AspNetCore.Authorization;
 using DragTrans.Application.Services.Profile.ChangeDescription;
 using Microsoft.AspNetCore.Mvc;
@@ -50,18 +50,5 @@ public class ProfileController : ControllerBase
 
         await _profileService.UpdateDescriptionAsync(request.NewDescription, id);
         return Ok();
-    }
-
-    [HttpPut("ChangeAvatar")]
-    public async Task<IActionResult> ChangeAvatar()
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (!Guid.TryParse(userId, out var id))
-        {
-            return Unauthorized();
-        }
-
-        string AvatarPath = await _profileService.UpdateAvatarFilePathAsync(userId);
     }
 }

@@ -22,6 +22,25 @@ namespace DragTrans.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DragTrans.Domain.Entities.Avatar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Avatars");
+                });
+
             modelBuilder.Entity("DragTrans.Domain.Entities.EmailVerification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -43,14 +62,13 @@ namespace DragTrans.Infrastructure.Migrations
                     b.ToTable("EmailVerifications");
                 });
 
-            modelBuilder.Entity("DragTrans.Domain.Entities.SettingProfile", b =>
+            modelBuilder.Entity("DragTrans.Domain.Entities.Profile", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AvatarFilePath")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("AvatarId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -61,7 +79,10 @@ namespace DragTrans.Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("SettingProfiles");
+                    b.HasIndex("AvatarId")
+                        .IsUnique();
+
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("DragTrans.Domain.Entities.StoredFile", b =>
@@ -77,6 +98,10 @@ namespace DragTrans.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("OriginalName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -87,6 +112,9 @@ namespace DragTrans.Infrastructure.Migrations
                     b.Property<string>("StoredName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -127,13 +155,21 @@ namespace DragTrans.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DragTrans.Domain.Entities.SettingProfile", b =>
+            modelBuilder.Entity("DragTrans.Domain.Entities.Profile", b =>
                 {
+                    b.HasOne("DragTrans.Domain.Entities.Avatar", "Avatar")
+                        .WithOne()
+                        .HasForeignKey("DragTrans.Domain.Entities.Profile", "AvatarId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
                     b.HasOne("DragTrans.Domain.Entities.User", "User")
                         .WithOne("Profile")
-                        .HasForeignKey("DragTrans.Domain.Entities.SettingProfile", "UserId")
+                        .HasForeignKey("DragTrans.Domain.Entities.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Avatar");
 
                     b.Navigation("User");
                 });

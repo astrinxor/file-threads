@@ -1,11 +1,12 @@
 namespace DragTrans.Domain.Entities;
 
-public class SettingProfile
+public class Profile
 {
     public Guid UserId { get; set; }
+    public Guid AvatarId { get; set; }
     public string Description { get; set; } = "описание профиля";
-    public string AvatarFilePath { get; set; } = string.Empty;
     public ICollection<StoredFile> Files { get; set; } = new List<StoredFile>();
+    public Avatar Avatar { get; set; } = null!;
     public bool IsOnline { get; set; } = false;
     public User User { get; set; } = null!;
 }

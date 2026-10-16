@@ -28,14 +28,14 @@ public class SettingProfileRepository : ISettingProfileRepository
 );
     }
 
-    public async Task<SettingProfile?> GetProfileByUserIdAsync(Guid userId)
+    public async Task<Profile?> GetProfileByUserIdAsync(Guid userId)
     {
-        return await _dbContext.SettingProfiles
+        return await _dbContext.Profiles
             .FirstOrDefaultAsync(profile => profile.UserId == userId);
     }
     public async Task UpdateDescriptionAsync(string newDescription, Guid userId)
     {
-        var profile = await _dbContext.SettingProfiles
+        var profile = await _dbContext.Profiles
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (profile != null)
@@ -46,21 +46,9 @@ public class SettingProfileRepository : ISettingProfileRepository
         
     }
 
-    public async Task UpdateAvatarFilePathAsync(string avatarFilePath, Guid userId)
-    {
-        var profile = await _dbContext.SettingProfiles
-            .FirstOrDefaultAsync(p => p.UserId == userId);
-
-        if (profile != null)
-        {
-            profile.AvatarFilePath = avatarFilePath;
-            await _dbContext.SaveChangesAsync();
-        }
-    }
-
     public async Task UpdateOnlineStatusAsync(Guid userId, bool isOnline)
     {
-        var profile = await _dbContext.SettingProfiles
+        var profile = await _dbContext.Profiles
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (profile != null)

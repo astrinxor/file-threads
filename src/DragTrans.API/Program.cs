@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using DragTrans.Application.Service.Profile;
+using DragTrans.Application.Service.SettingProfile;
 
 using System.Text;
 
