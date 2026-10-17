@@ -12,18 +12,21 @@ public class ProfileService
         _settingProfileRepository = settingProfileRepository;
     }
 
-    public async Task<Profile?> GetProfileAsync(Guid userId)
+    public async Task<Avatar?> ProfileAvatarGetAsync(Guid userId)
     {
-        return await _settingProfileRepository.GetProfileByUserIdAsync(userId);
-    }
+        var profile = await _settingProfileRepository.ProfileGetByIdAsync(userId);
 
-    public async Task UpdateDescriptionAsync(string newDescription, Guid userId)
-    {
-        await _settingProfileRepository.UpdateDescriptionAsync(newDescription, userId);
-    }
+        if (profile == null)
+        {
+            throw new Exception("Профиль не найден");
+        }
 
-    public async Task UpdateOnlineStatusAsync(Guid userId, bool isOnline)
-    {
-        await _settingProfileRepository.UpdateOnlineStatusAsync(userId, isOnline);
+        var avatarId = profile.AvatarId;
+
+        Avatar? avatar = await _settingProfileRepository.AvatarGetByIdAsync(avatarId);
+
+        return avatar;
+
+
     }
 }

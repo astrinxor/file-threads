@@ -4,8 +4,6 @@ namespace DragTrans.Application.Interfaces;
 
     public interface ISettingProfileRepository
 {
-    Task<Profile?> GetProfileByUserIdAsync(Guid userId);
-    Task UpdateDescriptionAsync(string newDescription, Guid userId);
-    Task UpdateOnlineStatusAsync(Guid userId, bool isOnline);
-    Task<string> CreateDefaultAvatarAsync(Guid userId);
+    public Task<Avatar?> AvatarGetByIdAsync(Guid avatarId);
+    public Task<Profile?> ProfileGetByIdAsync(Guid userId); 
 }

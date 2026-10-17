@@ -1,16 +1,19 @@
 ﻿using DragTrans.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using DragTrans.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace DragTrans.Application.Services.Files;
 
 public class FileService
 {
     private readonly IFileRepository _fileRepository;
+    private readonly IConfiguration _configuration;
     
-    public FileService(IFileRepository fileRepository)
+    public FileService(IFileRepository fileRepository, IConfiguration configuration)
     {
         _fileRepository = fileRepository;
+        _configuration = configuration;
     }
 
 
@@ -21,7 +24,7 @@ public class FileService
 
         var storedName = Guid.NewGuid().ToString();
 
-        var storagePath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "..", "..", "database", "storage", "Profiles", userId.ToString(), "Files");
+        var storagePath = Path.Combine(_configuration["Storage:RootPath"], userId.ToString(), "Files");
         Directory.CreateDirectory(storagePath);
 
         var filePath = Path.Combine(storagePath, storedName);
@@ -62,7 +65,7 @@ public class FileService
                 "Вы не можете удалить этот файл.");
         }
 
-        var filePath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "..", "..", "database", "storage", "Profiles", userId.ToString(), "Files", file.StoredName);
+        var filePath = Path.Combine(_configuration["Storage:RootPath"], userId.ToString(), "Files", file.StoredName);
 
         if (File.Exists(filePath))
         {

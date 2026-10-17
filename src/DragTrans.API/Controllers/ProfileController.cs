@@ -1,8 +1,9 @@
 using DragTrans.Application.Service.SettingProfile;
 using Microsoft.AspNetCore.Authorization;
-using DragTrans.Application.Services.Profile.ChangeDescription;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using DragTrans.Application.Services.SettingProfile;
+using DragTrans.Domain.Entities;
 
 namespace DragTrans.API.Controllers;
 
@@ -11,44 +12,21 @@ namespace DragTrans.API.Controllers;
 [Authorize]
 public class ProfileController : ControllerBase
 {
-    private readonly ProfileService _profileService;
+    private readonly ProfileService _profileservice;
 
-    public ProfileController(ProfileService profileService)
+    public ProfileController(ProfileService profileservice)
     {
-        _profileService = profileService;
+        _profileservice = profileservice;
     }
 
-    [HttpGet("me")]
-    public async Task<IActionResult> GetMyProfile()
+    [HttpGet("getavatar")]
+    public async Task<IActionResult> GetAvatar()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        if (!Guid.TryParse(userId, out var id))
-        {
-            return Unauthorized();
-        }
+        var avatar = await _profileservice.ProfileAvatarGetAsync(userId);
 
-        var profile = await _profileService.GetProfileAsync(id);
+        return Ok(avatar);
+    } 
 
-        if (profile == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(profile);
-    }
-
-    [HttpPut("ChangeDescription")]
-    public async Task<IActionResult> ChangeDescription([FromBody] ChangeDescriptionRequest request)
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (!Guid.TryParse(userId, out var id))
-        {
-            return Unauthorized();
-        }
-
-        await _profileService.UpdateDescriptionAsync(request.NewDescription, id);
-        return Ok();
-    }
 }
