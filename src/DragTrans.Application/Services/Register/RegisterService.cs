@@ -34,7 +34,7 @@ public class RegisterService
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var userId = Guid.NewGuid();
         var avatarId = Guid.NewGuid();
-        var avatarContentType = "image/png";
+        var avatarContentType = ".png";
         
         string rootPath = _configuration["Storage:RootPath"];
         string userDirectoryPath = Path.Combine(rootPath, userId.ToString());

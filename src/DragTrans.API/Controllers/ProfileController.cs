@@ -29,4 +29,14 @@ public class ProfileController : ControllerBase
         return Ok(avatar);
     } 
 
+    [HttpPut("change")]
+    public async Task<IActionResult> ChangeAvatar(IFormFile avatar)
+    {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        var storedAvatar = await _profileservice.ReplacementAvatar(avatar, userId);
+
+        return Ok(storedAvatar);
+    }
+
 }
